@@ -1,6 +1,6 @@
 export default function ProductCategory() {
   return (
-    <div className="flex justify-center items-center mt-[180px]">
+    <div className="flex justify-center items-center mt-[180px] p-4">
       <div className="text-center">
         <h1 className="font-sans text-[50px]">Quality Products</h1>
         <p className="text-gray-400 mt-6 text-md w-full max-w-xl break-words">

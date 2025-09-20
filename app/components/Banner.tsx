@@ -20,7 +20,7 @@ export default function Banner() {
           src={bannerData[currentIndex]}
           alt="grass field"
           fill
-          className="object-cover"
+          className="object-fit md:object-cover"
         />
       </div>
       <div className="absolute text-white top-[250px] left-[15px] md:top-[380px] md:left-[180px] ">
@@ -29,13 +29,14 @@ export default function Banner() {
           From Our Farms To Your Hands
         </p>
         <div className="flex mt-[150px] md:mt-[200px]">
-          <div className=" w-[100px] h-[100px] border-2 relative">
+          <div className=" w-[120px] h-[120px] border-1 relative cursor-pointer">
             <Image
               src={bannerData[(currentIndex + 1) % bannerData.length]}
               alt=""
               fill
-              className="object-contain"
+              className="object-fit p-4"
             />
+            <span className="absolute top-[42px] left-10">Next</span>
           </div>
           <div className="flex  items-center ml-10">
             <span className="">
