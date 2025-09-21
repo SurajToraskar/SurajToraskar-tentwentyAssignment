@@ -11,7 +11,7 @@ export default function Banner() {
       setCurrentIndex((prev) => (prev + 1) % bannerData.length);
     }, 5000);
     return () => clearInterval(interval);
-  }, []);
+  }, [currentIndex, bannerData.length]);
 
   const handleNext = () => {
     setCurrentIndex((prev) => (prev + 1) % bannerData.length);
