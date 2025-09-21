@@ -1,8 +1,8 @@
 import image1 from "../../public/image1.png";
-import image2 from "../../public/image2.png";
+import image2 from "../../public/image6.jpg";
 import image3 from "../../public/image3.png";
 import image4 from "../../public/image4.png";
-import image5 from "../../public/image5.png";
+import image5 from "../../public/image7.jpg";
 
 export const imageData = [
   {

@@ -31,7 +31,7 @@ export default function ImageCarousel() {
   });
 
   return (
-    <div className="w-full mt-10 text-center min-h-screen px-2">
+    <div className="w-full mt-[100px] text-center min-h-screen px-2">
       <div ref={sliderRef} className="keen-slider">
         {imageData.map((image, index) => {
           return (
@@ -39,9 +39,8 @@ export default function ImageCarousel() {
               <Image
                 src={image.src}
                 alt={image.title}
-                width={400}
-                height={300}
-                className={`w-full h-auto rounded-lg object-cover`}
+                className={`
+                  w-full h-[200px] md:h-[600px] rounded-lg object-cover`}
               />
             </div>
           );
