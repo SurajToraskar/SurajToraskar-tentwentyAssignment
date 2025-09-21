@@ -14,7 +14,15 @@ export default function ImageCarousel() {
     mode: "snap",
     slides: {
       perView: 3,
-      spacing: 15,
+      spacing: 10,
+    },
+    breakpoints: {
+      "(min-width: 768px)": {
+        slides: { perView: 3, spacing: 20 },
+      },
+      "(min-width: 1024px)": {
+        slides: { perView: 3, spacing: 40 }, // Larger spacing on desktop
+      },
     },
     slideChanged(s) {
       setActiveIndex(s.track.details.rel);
