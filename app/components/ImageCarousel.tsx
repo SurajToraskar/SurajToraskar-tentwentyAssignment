@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { imageData } from "../utils/imageData";
+import { imageData as originalData } from "../utils/imageData";
 import Image from "next/image";
 
 export default function ImageCarousel() {
@@ -11,7 +11,22 @@ export default function ImageCarousel() {
   const startX = useRef(0);
   const scrollLeft = useRef(0);
 
-  // Handle center image detection
+  const imageData = [
+    ...originalData.slice(-1),
+    ...originalData,
+    ...originalData.slice(0, 1),
+  ];
+
+  const realLength = originalData.length;
+
+  useEffect(() => {
+    const slider = sliderRef.current;
+    if (slider) {
+      const child = slider.children[1] as HTMLElement; // real first item
+      slider.scrollLeft = child.offsetLeft - slider.offsetLeft;
+    }
+  }, []);
+
   const handleScroll = () => {
     const slider = sliderRef.current;
     if (!slider) return;
@@ -31,9 +46,19 @@ export default function ImageCarousel() {
       }
     });
 
-    setActiveIndex(closestIndex);
+    const realIndex = (closestIndex - 1 + realLength) % realLength;
+    setActiveIndex(realIndex);
+
+    if (closestIndex === 0) {
+      const lastReal = slider.children[realLength] as HTMLElement;
+      slider.scrollLeft = lastReal.offsetLeft - slider.offsetLeft;
+    } else if (closestIndex === imageData.length - 1) {
+      const firstReal = slider.children[1] as HTMLElement;
+      slider.scrollLeft = firstReal.offsetLeft - slider.offsetLeft;
+    }
   };
 
+  // Mouse drag handlers
   const onMouseDown = (e: React.MouseEvent) => {
     const slider = sliderRef.current;
     if (!slider) return;
@@ -60,11 +85,11 @@ export default function ImageCarousel() {
 
     e.preventDefault();
     const x = e.pageX - slider.offsetLeft;
-    const walk = (x - startX.current) * 1.5; // drag speed multiplier
+    const walk = (x - startX.current) * 1.5;
     slider.scrollLeft = scrollLeft.current - walk;
   };
 
-  // Touch support
+  // Touch handlers
   const onTouchStart = (e: React.TouchEvent) => {
     const slider = sliderRef.current;
     if (!slider) return;
@@ -91,19 +116,17 @@ export default function ImageCarousel() {
     const slider = sliderRef.current;
     if (!slider) return;
 
-    handleScroll();
     slider.addEventListener("scroll", handleScroll);
-
     return () => {
       slider.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
   return (
-    <div className="w-full max-w-5xl mx-auto overflow-hidden text-center min-h-screen">
+    <div className="w-full max-w-6xl mx-auto text-center min-h-screen px-2">
       <div
         ref={sliderRef}
-        className="flex gap-10  scroll-snap-x scroll-smooth py-10 px-2 snap-x snap-mandatory cursor-grab select-none overflow-x-hidden"
+        className="flex gap-10 scroll-smooth py-10 snap-x snap-mandatory cursor-grab select-none overflow-x-hidden"
         onMouseDown={onMouseDown}
         onMouseLeave={onMouseLeave}
         onMouseUp={onMouseUp}
@@ -112,29 +135,52 @@ export default function ImageCarousel() {
         onTouchMove={onTouchMove}
         onTouchEnd={onTouchEnd}
       >
-        {imageData.map((image, index) => (
-          <div
-            key={image.id}
-            className={`flex-shrink-0 w-72 transition-all duration-300 ease-in-out snap-center transform ${
-              activeIndex === index
-                ? "scale-105 rotate-0 opacity-100"
-                : "scale-90 -rotate-3 opacity-50"
-            }`}
-          >
-            <Image
-              src={image.src}
-              alt={image.title}
-              width={400}
-              height={300}
-              className="w-full h-auto rounded-lg pointer-events-none"
-            />
-          </div>
-        ))}
+        {imageData.map((image, index) => {
+          const slide = sliderRef.current?.children[index] as HTMLElement;
+          let transformClasses = "";
+
+          if (slide && sliderRef.current) {
+            const rect = slide.getBoundingClientRect();
+            const sliderRect = sliderRef.current.getBoundingClientRect();
+            const slideCenter = rect.left + rect.width / 2;
+            const sliderCenter = sliderRect.left + sliderRect.width / 2;
+            const offset = slideCenter - sliderCenter;
+
+            if (Math.abs(offset) < rect.width / 2) {
+              // Center image
+              transformClasses =
+                "scale-105 -translate-y-4 opacity-100 rotate-0";
+            } else if (offset < 0) {
+              // Left side
+              transformClasses = "scale-90 opacity-50 -rotate-12 translate-y-0";
+            } else {
+              // Right side
+              transformClasses = "scale-90 opacity-50 rotate-12 translate-y-0";
+            }
+          } else {
+            transformClasses = "scale-90 opacity-50 translate-y-0";
+          }
+
+          return (
+            <div
+              key={`${image.id}-${index}`}
+              className={`flex-shrink-0 w-1/3 max-w-sm transition-all duration-300 ease-in-out snap-center transform ${transformClasses}`}
+            >
+              <Image
+                src={image.src}
+                alt={image.title}
+                width={400}
+                height={300}
+                className="w-full h-full rounded-lg pointer-events-none"
+              />
+            </div>
+          );
+        })}
       </div>
       <div className="mt-4">
-        <h2 className="text-3xl">{imageData[activeIndex].title}</h2>
+        <h2 className="text-3xl">{originalData[activeIndex].title}</h2>
         <p className="text-gray-500 mt-2 text-xl">
-          {imageData[activeIndex].description}
+          {originalData[activeIndex].description}
         </p>
       </div>
     </div>
