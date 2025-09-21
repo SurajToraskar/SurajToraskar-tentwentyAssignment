@@ -28,13 +28,13 @@ export default function Banner() {
           className="object-fit md:object-cover"
         />
       </div>
-      <div className="absolute text-white top-[250px] left-[15px] md:top-[380px] md:left-[180px] ">
+      <div className="absolute text-white top-[40%] left-[20px] md:top-[30%] md:left-[8%] ">
         <p>Welcome To TenTwenty Farms</p>
         <p className="mt-[20px] text-3xl  md:text-6xl max-w-sm   md:max-w-lg">
           From Our Farms To Your Hands
         </p>
         <div
-          className="flex mt-[150px] md:mt-[200px]"
+          className="flex mt-[40%] md:mt-[40%]"
           onClick={() => handleNext()}
         >
           <div className=" w-[120px] h-[120px] border-1 relative cursor-pointer">
