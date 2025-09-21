@@ -17,7 +17,7 @@ export default function Banner() {
   const handleNext = () => {
     setCurrentIndex((prev) => (prev + 1) % bannerData.length);
   };
-
+ 
   return (
     <div className="w-full">
       <Navbar />
