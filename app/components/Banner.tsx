@@ -3,6 +3,7 @@ import Image from "next/image";
 import Navbar from "./Navbar";
 import { bannerData } from "../utils/bannerData";
 import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 
 export default function Banner() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -21,22 +22,30 @@ export default function Banner() {
     <div className="w-full">
       <Navbar />
       <div className="relative w-full h-[100vh]">
-        <Image
-          src={bannerData[currentIndex]}
-          alt="grass field"
-          fill
-          className="object-fit md:object-cover"
-        />
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentIndex}
+            initial={{ opacity: 0, scale: 1.05 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 1.2 }}
+            className="absolute inset-0"
+          >
+            <Image
+              src={bannerData[currentIndex]}
+              alt="grass field"
+              fill
+              className="object-fit md:object-cover"
+            />
+          </motion.div>
+        </AnimatePresence>
       </div>
       <div className="absolute text-white top-[40%] left-[20px] md:top-[30%] md:left-[8%] ">
         <p>Welcome To TenTwenty Farms</p>
         <p className="mt-[20px] text-3xl  md:text-6xl max-w-sm   md:max-w-lg">
           From Our Farms To Your Hands
         </p>
-        <div
-          className="flex mt-[40%] md:mt-[40%]"
-          onClick={() => handleNext()}
-        >
+        <div className="flex mt-[40%] md:mt-[40%]" onClick={() => handleNext()}>
           <div className=" w-[120px] h-[120px] border-1 relative cursor-pointer">
             <Image
               src={bannerData[(currentIndex + 1) % bannerData.length]}
