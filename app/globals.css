@@ -59,3 +59,12 @@ body {
   animation: loaderLeft 1.25s linear forwards;
   animation-delay: 3.75s;
 }
+
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
