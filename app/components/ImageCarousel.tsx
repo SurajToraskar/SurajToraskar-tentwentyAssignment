@@ -21,24 +21,19 @@ export default function ImageCarousel() {
         slides: { perView: 3, spacing: 20 },
       },
       "(min-width: 1024px)": {
-        slides: { perView: 3, spacing: 40 }, // Larger spacing on desktop
+        slides: { perView: 3, spacing: 300 },
       },
     },
     slideChanged(s) {
-      setActiveIndex(s.track.details.rel);
+      const centerIndex = (s.track.details.rel + 1) % imageData.length;
+      setActiveIndex(centerIndex);
     },
   });
 
   return (
-    <div className="w-full  mt-10 text-center min-h-screen px-2">
+    <div className="w-full mt-10 text-center min-h-screen px-2">
       <div ref={sliderRef} className="keen-slider">
         {imageData.map((image, index) => {
-          let rotateProps = "";
-          if (index === activeIndex - 1) {
-            rotateProps = "bg-red-500";
-          } else if (index === activeIndex + 1) {
-            rotateProps = "bg-green-500";
-          }
           return (
             <div key={image.id} className="keen-slider__slide px-2">
               <Image
@@ -46,7 +41,7 @@ export default function ImageCarousel() {
                 alt={image.title}
                 width={400}
                 height={300}
-                className={`w-full h-auto rounded-lg object-cover  ${rotateProps}`}
+                className={`w-full h-auto rounded-lg object-cover`}
               />
             </div>
           );
@@ -64,7 +59,7 @@ export default function ImageCarousel() {
             transition={{ duration: 1 }}
             className="text-2xl md:text-3xl"
           >
-            {imageData[activeIndex].title}
+            {imageData[activeIndex]?.title}
           </motion.h2>
           <motion.p
             key={activeIndex + "-desc"}
@@ -74,7 +69,7 @@ export default function ImageCarousel() {
             transition={{ duration: 1.2 }}
             className="text-gray-500 mt-2 text-lg md:text-xl"
           >
-            {imageData[activeIndex].description}
+            {imageData[activeIndex]?.description}
           </motion.p>
         </AnimatePresence>
       </div>
