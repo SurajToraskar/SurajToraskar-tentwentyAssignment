@@ -4,3 +4,58 @@
 body {
   font-family: "Work Sans", sans-serif;
 }
+@keyframes loaderTop {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes loaderRight {
+  from {
+    height: 0;
+  }
+  to {
+    height: 100%;
+  }
+}
+
+@keyframes loaderBottom {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes loaderLeft {
+  from {
+    height: 0;
+  }
+  to {
+    height: 100%;
+  }
+}
+
+.animate-loaderTop {
+  animation: loaderTop 1.25s linear forwards;
+  animation-delay: 0s;
+}
+
+.animate-loaderRight {
+  animation: loaderRight 1.25s linear forwards;
+  animation-delay: 1.25s;
+}
+
+.animate-loaderBottom {
+  animation: loaderBottom 1.25s linear forwards;
+  animation-delay: 2.5s;
+}
+
+.animate-loaderLeft {
+  animation: loaderLeft 1.25s linear forwards;
+  animation-delay: 3.75s;
+}
