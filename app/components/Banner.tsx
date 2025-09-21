@@ -49,10 +49,10 @@ export default function Banner() {
               key={currentIndex}
               className="absolute inset-0 z-10 pointer-events-none"
             >
-              <div className="absolute top-0 left-0 h-[2px] bg-white animate-loaderTop"></div>
-              <div className="absolute top-0 right-0 w-[2px] bg-white animate-loaderRight"></div>
-              <div className="absolute bottom-0 right-0 h-[2px] bg-white animate-loaderBottom"></div>
-              <div className="absolute bottom-0 left-0 w-[2px] bg-white animate-loaderLeft"></div>
+              <div className="absolute top-0 left-0 h-[6px] bg-white animate-loaderTop"></div>
+              <div className="absolute top-0 right-0 w-[6px] bg-white animate-loaderRight"></div>
+              <div className="absolute bottom-0 right-0 h-[6px] bg-white animate-loaderBottom"></div>
+              <div className="absolute bottom-0 left-0 w-[6px] bg-white animate-loaderLeft"></div>
             </div>
           </div>
           <div className="flex  items-center ml-10">

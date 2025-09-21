@@ -26,16 +26,16 @@ export default function Navbar() {
           </button>
         </div>
         <button
-          className="md:hidden flex flex-col space-y-1"
+          className="md:hidden flex flex-col space-y-1 w-10 h-10 items-center justify-center bg-gray-100"
           onClick={() => setDrawerOpen((prev) => !prev)}
         >
-          <span className="block w-6 h-0.5 bg-black"></span>
-          <span className="block w-6 h-0.5 bg-black"></span>
-          <span className="block w-6 h-0.5 bg-black"></span>
+          <span className="block w-6 h-0.5 bg-gray-500"></span>
+          <span className="block w-4 h-0.5 bg-gray-500"></span>
+          <span className="block w-6 h-0.5 bg-gray-500"></span>
         </button>
       </div>
       <div
-        className={`fixed top-[66px] right-0 h-full w-64 bg-white shadow-lg transform transition-transform duration-300 ${
+        className={`fixed top-[58px] right-0 h-full w-64 bg-white shadow-lg transform transition-transform duration-300 ${
           drawerOpen ? "translate-x-0" : "translate-x-full"
         } md:hidden z-50`}
       >
