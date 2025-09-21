@@ -22,19 +22,27 @@ export default function ImageCarousel() {
   });
 
   return (
-    <div className="w-full max-w-6xl mx-auto mt-10 text-center min-h-screen px-2">
+    <div className="w-full  mt-10 text-center min-h-screen px-2">
       <div ref={sliderRef} className="keen-slider">
-        {imageData.map((image) => (
-          <div key={image.id} className="keen-slider__slide px-2">
-            <Image
-              src={image.src}
-              alt={image.title}
-              width={400}
-              height={300}
-              className="w-full h-auto rounded-lg object-cover"
-            />
-          </div>
-        ))}
+        {imageData.map((image, index) => {
+          let rotateProps = "";
+          if (index === activeIndex - 1) {
+            rotateProps = "bg-red-500";
+          } else if (index === activeIndex + 1) {
+            rotateProps = "bg-green-500";
+          }
+          return (
+            <div key={image.id} className="keen-slider__slide px-2">
+              <Image
+                src={image.src}
+                alt={image.title}
+                width={400}
+                height={300}
+                className={`w-full h-auto rounded-lg object-cover  ${rotateProps}`}
+              />
+            </div>
+          );
+        })}
       </div>
 
       {/* Animated Title & Description */}
