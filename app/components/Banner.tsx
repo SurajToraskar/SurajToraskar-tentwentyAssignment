@@ -40,7 +40,7 @@ export default function Banner() {
           </motion.div>
         </AnimatePresence>
       </div>
-      <div className="absolute text-white top-[40%] left-[20px] md:top-[30%] md:left-[8%] ">
+      <div className="absolute text-white top-[40%] left-[20px] bottom-10 md:top-[30%] md:left-[8%] md:[2%] ">
         <p>Welcome To TenTwenty Farms</p>
         <p className="mt-[20px] text-3xl  md:text-6xl max-w-sm   md:max-w-lg">
           From Our Farms To Your Hands
