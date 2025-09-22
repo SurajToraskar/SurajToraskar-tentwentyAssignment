@@ -15,7 +15,7 @@ export default function ImageCarousel() {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <div className="w-full mt-[100px] text-center min-h-screen px-2">
+    <div className="w-full mt-[100px] text-center min-h-screen px-2 pd-2">
       <Swiper
         spaceBetween={30}
         slidesPerView={3}
@@ -38,19 +38,20 @@ export default function ImageCarousel() {
         className="w-full"
       >
         {imageData.map((image, index) => (
-          <SwiperSlide key={image.id} className="relative md:py-10">
+          <SwiperSlide key={image.id} className="relative md:py-10 h-[80%]">
             <Image
               src={image.src}
               alt={image.title}
               width={600}
               height={600}
-              className={`w-[80%] md:w-[80%] mx-10 h-[300px] md:h-[600px] rounded-lg object-cover transition-transform duration-500 ${
+              // w-[80%] md:w-[80%] mx-10 h-[300px] md:h-[600px]
+              className={`h-[300px]   md:w-[80%]  md:h-[600px] rounded-lg object-cover transition-transform duration-500 ${
                 index ===
                 (activeIndex - 1 + imageData.length) % imageData.length
                   ? "-rotate-6"
                   : index === (activeIndex + 1) % imageData.length
                   ? "rotate-6"
-                  : "md:-mt-[32px]"
+                  : "-mt-[10px] md:-mt-[32px] md:mr-[200px]"
               }`}
             />
           </SwiperSlide>
