@@ -38,19 +38,19 @@ export default function ImageCarousel() {
         className="w-full"
       >
         {imageData.map((image, index) => (
-          <SwiperSlide key={image.id} className="relative py-10">
+          <SwiperSlide key={image.id} className="relative md:py-10">
             <Image
               src={image.src}
               alt={image.title}
               width={600}
               height={600}
-              className={`w-[80%] mx-10 h-[200px] md:h-[600px] rounded-lg object-cover transition-transform duration-500 ${
+              className={`w-[80%] md:w-[80%] mx-10 h-[300px] md:h-[600px] rounded-lg object-cover transition-transform duration-500 ${
                 index ===
                 (activeIndex - 1 + imageData.length) % imageData.length
                   ? "-rotate-6"
                   : index === (activeIndex + 1) % imageData.length
                   ? "rotate-6"
-                  : "-mt-[32px]"
+                  : "md:-mt-[32px]"
               }`}
             />
           </SwiperSlide>
