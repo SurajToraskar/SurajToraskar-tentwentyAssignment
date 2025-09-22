@@ -11,10 +11,11 @@
   "dependencies": {
     "@netlify/plugin-nextjs": "^5.13.3",
     "framer-motion": "^12.23.16",
-    "keen-slider": "^6.8.6",
     "next": "15.5.3",
     "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "react-dom": "19.1.0",
+    "react-swiper": "^0.1.5",
+    "swiper": "^12.0.2"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

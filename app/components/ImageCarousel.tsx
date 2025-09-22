@@ -1,53 +1,62 @@
 "use client";
 
-import { useKeenSlider } from "keen-slider/react";
+import { useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import "keen-slider/keen-slider.min.css";
-import { useState } from "react";
+
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+
 import { imageData } from "../utils/imageData";
 
 export default function ImageCarousel() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [sliderRef] = useKeenSlider({
-    loop: true,
-    mode: "snap",
-    slides: {
-      perView: 3,
-      spacing: 10,
-    },
-    breakpoints: {
-      "(min-width: 768px)": {
-        slides: { perView: 3, spacing: 20 },
-      },
-      "(min-width: 1024px)": {
-        slides: { perView: 3, spacing: 300 },
-      },
-    },
-    slideChanged(s) {
-      const centerIndex = (s.track.details.rel + 1) % imageData.length;
-      setActiveIndex(centerIndex);
-    },
-  });
 
   return (
     <div className="w-full mt-[100px] text-center min-h-screen px-2">
-      <div ref={sliderRef} className="keen-slider">
-        {imageData.map((image, index) => {
-          return (
-            <div key={image.id} className="keen-slider__slide px-2">
-              <Image
-                src={image.src}
-                alt={image.title}
-                className={`
-                  w-full h-[200px] md:h-[600px] rounded-lg object-cover`}
-              />
-            </div>
-          );
-        })}
-      </div>
+      <Swiper
+        spaceBetween={30}
+        slidesPerView={3}
+        loop={true}
+        centeredSlides={true}
+        onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
+        breakpoints={{
+          640: {
+            slidesPerView: 1,
+          },
+          768: {
+            slidesPerView: 3,
+            spaceBetween: 20,
+          },
+          1024: {
+            slidesPerView: 3,
+            spaceBetween: 50,
+          },
+        }}
+        className="w-full"
+      >
+        {imageData.map((image, index) => (
+          <SwiperSlide key={image.id} className="relative py-10">
+            <Image
+              src={image.src}
+              alt={image.title}
+              width={600}
+              height={600}
+              className={`w-[80%] mx-10 h-[200px] md:h-[600px] rounded-lg object-cover transition-transform duration-500 ${
+                index ===
+                (activeIndex - 1 + imageData.length) % imageData.length
+                  ? "-rotate-6"
+                  : index === (activeIndex + 1) % imageData.length
+                  ? "rotate-6"
+                  : "-mt-[32px]"
+              }`}
+            />
+          </SwiperSlide>
+        ))}
+      </Swiper>
 
-      {/* Animated Title & Description */}
       <div className="mt-[100px] px-4 min-h-[80px]">
         <AnimatePresence mode="wait">
           <motion.h2
